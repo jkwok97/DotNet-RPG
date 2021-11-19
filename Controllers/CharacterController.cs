@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using DotNet_RPG.Models;
 using DotNet_RPG.Services.CharacterService;
 using DotNet_RPG.Dtos.Character;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace DotNet_RPG.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
         public class CharacterController : ControllerBase
@@ -23,7 +26,8 @@ namespace DotNet_RPG.Controllers
         [HttpGet("GetAll")]
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get() 
         {
-            return Ok(await _characterService.GetAllCharacters());
+            int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            return Ok(await _characterService.GetAllCharacters(id));
         }
 
         [HttpGet("{id}")]
