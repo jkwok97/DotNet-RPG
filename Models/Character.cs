@@ -16,5 +16,7 @@ namespace DotNet_RPG.Models
         public int Intelligence { get; set; } = 10;
 
         public RpgClass Class { get; set; } = RpgClass.Machine;
+
+        public User User { get; set; }
     }
 }

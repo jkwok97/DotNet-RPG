@@ -1,0 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DotNet_RPG.Models;
+
+namespace DotNet_RPG.Data
+{
+    public interface IAuthRepository
+    {
+        Task<ServiceResponse<int>> Register(User user, string password);
+
+        Task<ServiceResponse<string>> Login(string username, string password);
+
+        Task<bool> UserExists(string username);
+    }
+}
